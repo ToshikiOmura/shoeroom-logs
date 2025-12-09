@@ -3,11 +3,25 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
+type GiftLog = {
+  aft: number;
+  avatar_id: number;
+  avatar_url: string;
+  created_at: number;
+  gift_id: number;
+  image: string;
+  image2: string;
+  name: string;
+  num: number;
+  ua: number;
+  user_id: number;
+};
+
 type ShowroomData = {
   status: any;
   comments: any;
   gifts: any;
-  giftLogs: any;
+  giftLogs: GiftLog[];
   ts: number;
 };
 
@@ -20,7 +34,7 @@ export default function Page() {
   const [isCommentsOpen, setIsCommentsOpen] = useState(true);
   const [isGiftsOpen, setIsGiftsOpen] = useState(true);
 
-  const normalizeGiftLogs = (giftLogs) => {
+  const normalizeGiftLogs = (giftLogs:GiftLog[]) => {
     // Map で user_id + gift_id をキーに集約
     const map = new Map();
 
