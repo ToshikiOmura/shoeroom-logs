@@ -25,7 +25,7 @@ type ShowroomData = {
   ts: number;
 };
 
-// Suspense wrapper inner component
+// Suspense wrapper
 function ShowroomPageInner() {
   const searchParams = useSearchParams();
   const room_id = searchParams.get("room_id");
@@ -39,12 +39,12 @@ function ShowroomPageInner() {
 
     giftLogs.forEach((log) => {
       const key = `${log.user_id}_${log.gift_id}`;
+
       if (!map.has(key)) {
         map.set(key, { ...log });
       } else {
         const existing = map.get(key)!;
         existing.num += log.num;
-
         if (log.created_at > existing.created_at) {
           existing.created_at = log.created_at;
         }
@@ -81,19 +81,17 @@ function ShowroomPageInner() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-col">
 
-      {/* --- 固定ヘッダー --- */}
+      {/* ヘッダー */}
       <header className="bg-white shadow p-4 sticky top-0 z-10 flex items-center justify-between">
         <h1 className="text-xl font-bold">Showroom Viewer</h1>
         <span className="text-sm text-gray-600">Room ID: {room_id}</span>
       </header>
 
-      {/* --- メインレイアウト --- */}
-      <main className="flex-1 p-4 flex gap-4">
+      {/* メインレイアウト */}
+      <main className="flex-1 p-4 grid grid-cols-2 gap-4">
 
-        {/* ======================
-            コメント（横幅 2/3）
-        ======================= */}
-        <section className="w-2/3 bg-white rounded-xl shadow p-4 flex flex-col">
+        {/* コメント一覧 */}
+        <section className="bg-white rounded-xl shadow p-4 flex flex-col">
           <h2 className="text-lg font-semibold mb-3">コメント一覧</h2>
 
           <div className="flex-1 overflow-y-auto pr-1 space-y-3">
@@ -109,7 +107,7 @@ function ShowroomPageInner() {
                 />
 
                 <div className="flex flex-col">
-                  <span className="font-bold text-sm">
+                  <span className="font-bold text-sm mb-2">
                     {c.user_name || c.name}
                   </span>
                   <span className="text-sm">{c.comment}</span>
@@ -119,10 +117,8 @@ function ShowroomPageInner() {
           </div>
         </section>
 
-        {/* ======================
-            ギフト（横幅 1/3）
-        ======================= */}
-        <section className="w-1/3 bg-white rounded-xl shadow p-4 flex flex-col">
+        {/* ギフト一覧 */}
+        <section className="bg-white rounded-xl shadow p-4 flex flex-col">
           <h2 className="text-lg font-semibold mb-3">ギフト履歴</h2>
 
           <div className="flex-1 overflow-y-auto pr-1 space-y-3">
@@ -137,27 +133,20 @@ function ShowroomPageInner() {
                   <img
                     src={log.avatar_url}
                     className="w-10 h-10 rounded-full mr-3"
-                    alt=""
                   />
 
                   <div className="flex-1">
                     <div className="font-semibold">{log.name}</div>
 
                     <div className="flex items-center gap-2 text-sm mt-1">
-                    {/* <div className="flex items-center gap-2 text-sm mt-1"> */}
                       <img
                         src={log.image}
                         className="w-8 h-8 rounded"
                         alt=""
                       />
-                      <div>
-                        <div>
-                          × {log.num}
-                        </div>
-                        <div>
-                          {getGiftSG(log.gift_id) * log.num} SG
-                        </div>
-                      </div>
+                      <span>
+                        × {log.num}（{getGiftSG(log.gift_id) * log.num} SG）
+                      </span>
                     </div>
                   </div>
                 </div>
