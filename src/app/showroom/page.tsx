@@ -52,6 +52,11 @@ export default function Page() {
     return mergedArray;
   }
 
+  const getGiftSG = (gift_id: number) => {
+    const getGiftData = data?.gifts.find((g) => g.gift_id === gift_id);
+    return getGiftData ? getGiftData.point : 0;
+  };
+
   useEffect(() => {
     if (!room_id) return;
 
@@ -133,10 +138,8 @@ export default function Page() {
                         className="w-10 h-10 rounded-full object-cover"
                       />
                       <div className="mt-5">
-                        × {log.num}
+                        × {log.num} （{getGiftSG(log.gift_id) * log.num} SG）
                       </div>
-                      {/* {log.gift_name} × {log.num} */}
-                      {/* （{log.point * log.num} pt） */}
                     </div>
                   </div>
                   {/* 時間（任意） */}

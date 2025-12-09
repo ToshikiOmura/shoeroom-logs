@@ -54,9 +54,11 @@ export async function GET(req: NextRequest) {
           const giftLogJson = await giftLogRes.json();
           // console.log("### commentsJson:", commentsJson.comment_log);
           // console.log("### commentsJson key:", Object.keys(commentsJson));
-          // console.log("### giftLogJson:", giftLogJson.gift_log);
+          // console.log("### giftsListJson.normal:", giftsListJson.normal);
+          // console.log("### giftLogJson.gift_log:", giftLogJson.gift_log);
           // console.log("### giftLogJson key:", Object.keys(giftLogJson));
           // [ 'gift_log' ]
+          // console.log("### giftsListJson key:", giftsListJson);
 
           //---------------------------------------
           // コメント正規化
