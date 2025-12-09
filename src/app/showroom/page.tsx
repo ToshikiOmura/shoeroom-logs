@@ -31,8 +31,8 @@ export default function Page() {
   const [data, setData] = useState<ShowroomData | null>(null);
   const comments = data?.comments ?? [];
 
-  const [isCommentsOpen, setIsCommentsOpen] = useState(true);
-  const [isGiftsOpen, setIsGiftsOpen] = useState(true);
+  // const [isCommentsOpen, setIsCommentsOpen] = useState(true);
+  // const [isGiftsOpen, setIsGiftsOpen] = useState(true);
 
   const normalizeGiftLogs = (giftLogs:GiftLog[]) => {
     // Map で user_id + gift_id をキーに集約
@@ -67,7 +67,7 @@ export default function Page() {
   }
 
   const getGiftSG = (gift_id: number) => {
-    const getGiftData = data?.gifts.find((g) => g.gift_id === gift_id);
+    const getGiftData = data?.gifts.find((g: any) => g.gift_id === gift_id);
     return getGiftData ? getGiftData.point : 0;
   };
 
@@ -107,7 +107,7 @@ export default function Page() {
         <section className="w-2/3">
           <h2 className="text-xl font-semibold mt-6 mb-2">コメント一覧</h2>
           <div className="mt-2 space-y-2">
-            {comments.map((c, i: number) => (
+            {comments.map((c: any, i: number) => (
               <div
                 key={i}
                 className="flex items-start space-x-3 p-2 rounded-md bg-gray-100"
